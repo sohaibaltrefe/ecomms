@@ -3,10 +3,10 @@ import Navbar from '../assets/components/wep/navbar/Navbar'
 import Footer from '../assets/components/wep/footer/Footer'
 import { Outlet } from 'react-router-dom'
 
-export default function Layout() {
+export default function Layout({user,setUser}) {
     return (
         <>
-        <Navbar/>
+        <Navbar user={user} setUser={setUser}/>
         <Outlet/>
         <Footer/>
         </>  )

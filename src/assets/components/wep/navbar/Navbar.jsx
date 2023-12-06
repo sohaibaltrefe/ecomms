@@ -1,7 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
-export default function Navbar() {
+export default function Navbar({user,setUser}) {
+  const navigate=useNavigate();
+  const logout=()=>{
+    setUser(null);  
+    navigate('/home');
+  }
   return (
     <>
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -14,19 +19,23 @@ export default function Navbar() {
       <ul className="navbar-nav m-auto mb-2 mb-lg-0">
        
         <li className="nav-item">
-          <a className="nav-link" href="#">Home</a>
+          <Link className="nav-link" to="/">Home</Link>
         </li>
 
 
         <li className="nav-item">
-          <a className="nav-link" href="#">Categories</a>
+          <Link className="nav-link" to="/categories">Categories</Link>
         </li>
 
 
         <li className="nav-item">
         <a className="nav-link" href="#">Products</a>
       </li>
-     
+     {user&&<li className="nav-item">
+        <Link className="nav-link" to="/cart">cart</Link>
+      </li>
+
+     }
      
       </ul>
       <ul className="navbar-nav">
@@ -35,9 +44,18 @@ export default function Navbar() {
         Dropdown
       </a>
       <ul className="dropdown-menu ">
+        {!user?<>
+        
         <li><Link className="dropdown-item" to="/register">register</Link></li>
         <li><hr className="dropdown-divider" /></li>
-        <li><a className="dropdown-item" href="#">login</a></li>
+        <li><Link className="dropdown-item" to="/login">login</Link></li>
+        </>:<>
+        <li><Link className="dropdown-item" to="/register">prof</Link></li>
+        <li><hr className="dropdown-divider" /></li>
+        <li><Link className="dropdown-item"  onClick={logout} to="/login">logout</Link></li>
+        </>
+        }
+        
       </ul>
     </li>
       </ul>
