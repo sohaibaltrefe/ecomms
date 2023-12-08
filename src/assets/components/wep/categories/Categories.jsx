@@ -17,13 +17,11 @@ export default function Categories() {
 
   const getCategories = async ()=>{
   
-       const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/categories`);   
+       const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/categories/active?limit=10`);   
 return data;     }
 const x=useContext(CartContext);
-console.log(x);
-     const {data,isLoading}=useQuery('web_categories',getCategories);
- console.log(data?.Categories);
- if(isLoading){
+const {data,isLoading}=useQuery('web_categories',getCategories);
+if(isLoading){
   return <p>...loading</p>
  }
   return (
@@ -39,8 +37,8 @@ console.log(x);
       autoplay={{delay:3000}}
       pagination={{ clickable: true ,
       el: '.swiper-custom-pagination'}}
-      onSlideChange={() => console.log('slide change')}
-      onSwiper={(swiper) => console.log(swiper)}
+      // onSlideChange={() => console.log('slide change')}
+      // onSwiper={(swiper) => console.log(swiper)}
     >
 
 

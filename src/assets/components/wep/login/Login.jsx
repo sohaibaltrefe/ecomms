@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Input from '../../../page/Input';
 import { useFormik } from 'formik';
 import  {loginSchema} from '../valdation/validate.js'
 import {  toast } from 'react-toastify';
-
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-export default function Login({saveCurrentUser}) {
-    const navigate=useNavigate();
+import { UserContext } from '../context/User.jsx';
+export default function Login() {
+ const navigate=useNavigate();
+
+    let {userToken,setUserToken} = useContext(UserContext); 
+    if(userToken){
+        navigate(-1);
+    }
     const initialValues ={
         
         email:'',
@@ -16,15 +21,15 @@ export default function Login({saveCurrentUser}) {
     };
     
      
-    const   onSubmit= async users=>{
+    const onSubmit= async users=>{
 
 const {data}= await axios.post(`https://ecommerce-node4.vercel.app/auth/signin`,users);
 
- if(data.message=="success"){
+ if(data.message=='success'){
 
 localStorage.setItem("userToken",data.token); 
-saveCurrentUser();
-toast.success('login success', {
+setUserToken(data.token);
+toast.success('login success', {    
     position: "top-right",
     autoClose: false,
     hideProgressBar: false,

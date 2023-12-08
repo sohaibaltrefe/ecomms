@@ -17,7 +17,6 @@ const {addToCartContext}=useContext(CartContext)
   const addToCart= async(productId)=>{
     const res= await addToCartContext(productId);
 
-console.log(res);
   }
   if (isLoading) {
     return <p>...loading</p>;
